@@ -1,0 +1,28 @@
+Yeni PHP Dosyası - analiz_dt.php
+    analiz_dt.php isminde yeni bir php sayfası oluşturulur.
+    Bu sayfada php-ml kütüphanesine okuyacağımız datanın yuzde 70'i verilir ve geri kalan %30 test ettirilir
+    Başarı oranı kontrol edilir.
+
+Composer Kurulumu
+    php paket yöneticisi olan Composer uygulaması kurulur.
+    komut satırından composer -V ile kurulum kontrol edilir.
+    https://getcomposer.org/
+
+composer.json Dosyası
+    Projenin içine composer.json dosyası oluşturulur. Kullanacağımız php-ml kütüphanesi buraya eklenir.
+
+Kütüphane Kurulumu -İndirilmesi
+    php-ml dosyasını projemiz kullanabilmek için aşağıdaki komutu çalıştırara, kütüphaneyi indiriyoruz.
+    >   php C:\ProgramData\ComposerSetup\bin\composer.phar install
+    Bu komut sonrası proje klasörümüzde "vendor" isimli bir klasör oluşacaktır. php-ml kütüphanemiz buranın içerisine inmiş olacaktır.
+    not : php komutu çalışmaz ise ortam değişkenlerinden "Path" değerine php.exe'nin bulunduğu adresi ekliyoruz
+
+
+Ödev gönderme
+    data klasörü içerisinde sadece Test.csv olsun
+    eski ödevden bu yana;
+        analiz_dt.php eklendi.
+        composer.json eklendi.
+
+        dosya.php değiştirildi
+        index.php değiştirildi

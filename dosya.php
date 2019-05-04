@@ -290,6 +290,7 @@ function OutlierHesapla($kolon_veri, $Q1, $Q3){
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="index.php">Datasets</a></li>
+                    <li class="breadcrumb-item">View</li>
                     <li class="breadcrumb-item active" aria-current="page">
                         <?php echo $OKUNACAK_DOSYA_ADI ; ?>
                     </li>

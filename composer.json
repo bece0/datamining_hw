@@ -1,0 +1,6 @@
+{
+    "type": "project",
+    "require": {
+        "php-ai/php-ml": "0.8.0"
+    }
+}
