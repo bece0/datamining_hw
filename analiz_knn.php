@@ -135,7 +135,12 @@
                         echo "X Değer Kolon Adı : <b>".$xKolonAdi."</b><br>";
                         echo "Y Değer Kolon Adı : <b>".$yKolonAdi."</b><br>";
                         echo "Label Değer Kolon Adı : <b>".$labelKolon."</b><br>"; 
+
+                        $dogrulukOrani = $knnAlgoritmaNesnesi->DogrulukHesapla();
                     ?>
+                </div>
+                <div class="alert alert-info" role="alert">
+                    <?php echo "Doğruluk Oranı : <b> % $dogrulukOrani </b><br>"; ?> 
                 </div>
 
                 <h4>Sınıfı tahmin edilecek değerleri giriniz.</h4>
@@ -163,7 +168,9 @@
                     $yTahmin = $_POST["y_tahmin_value"];
 
                     // echo "Tahmin edilecek değerler -> X : ".$xTahmin." Y : ".$yTahmin;
-                    $sonuc = $knnAlgoritmaNesnesi->TahminEt($xTahmin, $yTahmin)
+                    $sonuc = $knnAlgoritmaNesnesi->TahminEt($xTahmin, $yTahmin);
+
+                    
                 ?>
                     <hr>
                      <div class="alert alert-success" role="alert">
@@ -171,9 +178,10 @@
                         <?php echo $yKolonAdi." -> <b>".$yTahmin."</b><br>"; ?>
                         <?php 
                             if($sonuc != NULL)
-                                echo "Sonuç : <b>".$sonuc[0]."</b>"; 
+                                echo "Sonuç : <b>".$sonuc[0]."</b><br>"; 
                                 //var_dump($sonuc);
                         ?>
+                       
                     </div>
                 <?php }?>
 

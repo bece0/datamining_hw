@@ -117,6 +117,8 @@ class KNN{
             return "Method parametresi 1 ya da 2 olabilir!";
         }
 
+        $this->SamplesVeLabelsAyarlar();
+
         return "";
     }
 
@@ -134,6 +136,10 @@ class KNN{
         $xKolonNumarasi = $this->SayisalKolonlar[$this->xColumn];
         $yKolonNumarasi = $this->SayisalKolonlar[$this->yColumn];
         $LabelKolonNumarasi = $this->SozelKolonlar[$this->labelColumn];
+
+        $this->samples = [];
+        $this->labels = [];
+        $this->targets = [];
 
         for ($i=0; $i < $satir_sayisi ; $i++) { 
             //echo "i = ".$i."</br>";
@@ -163,7 +169,7 @@ class KNN{
         // $labels = ['a', 'a', 'a', 'b', 'b', 'b'];
         $predictData = [[$xKolonDegeri, $yKolonDegeri]];
 
-        $this->SamplesVeLabelsAyarlar();
+        //$this->SamplesVeLabelsAyarlar();
         //echo "SamplesVeLabelsAyarlar bitti<br/>";
 
         $soruXY = [[$xKolonDegeri, $yKolonDegeri]] ;
@@ -198,7 +204,7 @@ class KNN{
         //[ 1 = 25, 5 = 27, 9 = 35 ]
 
         //echo "<br/>distances <br/>";
-        //var_dump($distances);
+       // var_dump($distances);
         //echo "<br/>";
 
         $predictions = (array) array_combine(array_values($this->targets), array_fill(0, count($this->targets), 0));
@@ -214,7 +220,9 @@ class KNN{
         }else{
             foreach (array_keys($distances) as $index) {
                 $uzaklik_karesi = $distances[$index] *  $distances[$index];
-                $predictions[$this->targets[$index]] = $predictions[$this->targets[$index]] + 1/$uzaklik_karesi;
+                //echo "<br/>$index - uzaklik_karesi : $uzaklik_karesi ";
+                if($uzaklik_karesi > 0)
+                    $predictions[$this->targets[$index]] = $predictions[$this->targets[$index]] + 1/$uzaklik_karesi;
             }
             arsort($predictions);
             reset($predictions);
@@ -227,9 +235,9 @@ class KNN{
     {
         $distances = [];
 
-        foreach ($this->samples as $index => $neighbor) {
-            //echo "kNeighborsDistances-foreach ".$index." <br>";
-            $distances[$index] = $this->distance($sample, $neighbor);
+        foreach ($this->samples as $ix => $neighbor) {
+            //echo "kNeighborsDistances-foreach ".$ix." <br>";
+            $distances[$ix] = $this->distance($sample, $neighbor);
             //echo "distances[$index] : ".$distances[$index]." <br>";
         }
 
@@ -268,13 +276,36 @@ class KNN{
 
     
     /**
-     * @param int x kolon degeri
-     * @param int y kolon degeri
-     * @return string tahmin sonucu degerini doner
+     * dosyanın içindeki tüm verileri test eder ve doğru sonuçların tüm tes sayısına göre oranını yani doğruluğu hesaplar.
+     * @return string doğruluk oranı degerini doner
      */
-    private function estimate(int $xKolonDegeri, int $yKolonDegeri)
+    public function DogrulukHesapla()
     {
+        $satir_sayisi = count($this->DosyaData);
 
+        $xKolonNumarasi = $this->SayisalKolonlar[$this->xColumn];
+        $yKolonNumarasi = $this->SayisalKolonlar[$this->yColumn];
+        $LabelKolonNumarasi = $this->SozelKolonlar[$this->labelColumn];
+
+        //echo "<hr>";
+        $dogruTahmin = 0;
+        for ($i=0; $i < $satir_sayisi ; $i++) { 
+            $satir = $this->DosyaData[$i];
+
+            $xKolonDegeri = $satir[$xKolonNumarasi];
+            $yKolonDegeri = $satir[$yKolonNumarasi];
+            $labelKolonDegeri = $satir[$LabelKolonNumarasi];
+
+            $sonuc = $this->TahminEt($xKolonDegeri, $yKolonDegeri);
+
+            if($sonuc[0] == $labelKolonDegeri)
+                $dogruTahmin = $dogruTahmin +1;
+
+            //echo "beklenen : $labelKolonDegeri , hesaplanan : $sonuc[0] <br>";
+        }
+
+        $oran = $dogruTahmin / $satir_sayisi * 100;
+        return $oran;
     }
 
 }
