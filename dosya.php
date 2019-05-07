@@ -1,3 +1,6 @@
+<!-- 151213059 BEGÜM ÇELEBİ -->
+
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -8,7 +11,8 @@
         <style>
         .container2{
             margin-left: 50px;
-            margin-right: 50px;
+            margin-right: 50px; 
+                
         }
 
         .table-container{

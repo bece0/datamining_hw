@@ -1,5 +1,6 @@
-<?php 
+<!-- 151213059 BEGÜM ÇELEBİ -->
 
+<?php 
 
 class KNN{
     
