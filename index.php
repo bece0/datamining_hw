@@ -76,6 +76,7 @@
                                 echo "<td><a href='dosya.php?name=". $dosyalar[$i]."' title='View dataset'>View</a></td>";
                                 echo "<td><a href='analiz_dt.php?name=". $dosyalar[$i]."'>Decision Tree</a></td>";
                                 echo "<td><a href='analiz_knn.php?name=". $dosyalar[$i]."'>kNN</a></td>";
+                                echo "<td><a href='clustering.php?name=". $dosyalar[$i]."'>Clustering</a></td>";
                                 //dosya linki oluşturuldu
                             echo "</tr>";
                         }
