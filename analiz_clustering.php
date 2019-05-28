@@ -98,13 +98,12 @@
                     <div class="form-group">
                         <label class="control-label">Cluster Count</label>
                         <p class="control-label desc-label">Number of clusters to find</p>
-                        <input class="form-control" name="cluster_count" value="3"/>
+                        <input type="number" class="form-control" name="cluster_count" value="3"/>
                     </div>
                     <input type="submit" class="btn btn-success" value="Calculate">
                 </form>
                 
-                <form method="GET" id="hiyerarsikForm"  action="clustering/hiyerarsik-page.php" style="display:none">
-                    <!-- <p class="alert alert-danger">//TODO</p> -->
+                <form method="GET" id="hiyerarsikForm"  action="clustering/agnes-page.php" style="display:none">
                     <input type="hidden" name="name" value="<?php echo $OKUNACAK_DOSYA_ADI;?>">
                     <div class="form-row">
                         <div class="form-group col-md-6">
@@ -118,6 +117,12 @@
                             <select class="form-control" name="y_column_name">
                                 <?php echo $sayisalKolonlarSelect;?>
                             </select>
+                        </div>
+                        <!-- <p class="alert-danger">Agglomerative Clustering Algorithm Parameters</p> -->
+                        <div class="form-group">
+                            <label class="control-label">Cluster Count</label>
+                            <p class="control-label desc-label">Number of clusters to find</p>
+                            <input type="number" class="form-control" name="cluster_count" value="3"/>
                         </div>
                     </div>
                     <input type="submit" class="btn btn-success" value="Calculate" >
@@ -142,12 +147,12 @@
                     <div class="form-group">
                         <label class="control-label">Minimum Samples</label>
                         <p class="control-label desc-label">Number of samples in a neighborhood for a point to be considered as a core point (this includes the point itself)</p>
-                        <input class="form-control" name="minsamples" value="2"/>
+                        <input type="number" class="form-control" name="minsamples" value="2"/>
                     </div>
                     <div class="form-group">
                         <label class="control-label">Epsilon</label>
                         <p class="control-label desc-label">Maximum distance between two samples for them to be considered as in the same neighborhood</p>
-                        <input class="form-control" name="epsilon" value="2" />
+                        <input type="number" class="form-control" name="epsilon" value="2" />
                     </div>
                     <input type="submit" class="btn btn-success" value="Calculate">
                 </form>
