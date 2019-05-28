@@ -10,10 +10,26 @@
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" ></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" ></script>
         <style>
-        .container2{
-            margin-left: 50px;
-            margin-right: 50px;
-        }
+            .container2{
+                margin-left: 50px;
+                margin-right: 50px;
+            }
+
+            .desc-label{
+                margin-bottom: 3px;
+                font-family: serif;
+            }
+
+            form{
+                border: solid 1px #c09b9b;
+                padding: 10px;
+                border-radius: 10px;
+            }
+
+            label {
+                margin-bottom: 0.2rem;
+                line-height: 0.5;
+            }
         </style>
     </head>
 
@@ -58,50 +74,80 @@
                     <label class="control-label">Method Seçiniz</label>
                     <select class="form-control" name="method" id="method" onchange="metodDegisim()">
                         <option value="bolunmeli">Bölünmeli - K-Means</option>
-                        <option value="hiyerarsik">Hiyerarşik yöntem</option>
-                        <option value="yogunluk">Yoğunluk Tabanlı yöntem</option>
+                        <option value="hiyerarsik">Hiyerarşik yöntem - AGNES </option>
+                        <option value="yogunluk">Yoğunluk Tabanlı yöntem - DBSCAN</option>
                     </select>
                 </div>
                 
                 <form method="GET" id="bolunmeliForm" action="clustering/kmeans-page.php" >
                     <input type="hidden" name="name" value="<?php echo $OKUNACAK_DOSYA_ADI;?>">
-                    <div class="form-group">
-                        <label class="control-label">X Column</label>
-                        <select class="form-control" name="x_column_name">
-                            <?php echo $sayisalKolonlarSelect;?>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label">Y Column</label>
-                        <select class="form-control" name="y_column_name">
-                            <?php echo $sayisalKolonlarSelect;?>
-                        </select>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label class="control-label">X Column</label>
+                            <select class="form-control" name="x_column_name">
+                                <?php echo $sayisalKolonlarSelect;?>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="control-label">Y Column</label>
+                            <select class="form-control" name="y_column_name">
+                                <?php echo $sayisalKolonlarSelect;?>
+                            </select>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label">Cluster Count</label>
+                        <p class="control-label desc-label">Number of clusters to find</p>
                         <input class="form-control" name="cluster_count" value="3"/>
                     </div>
                     <input type="submit" class="btn btn-success" value="Calculate">
                 </form>
                 
-                <form method="POST" id="hiyerarsikForm"  action="clustering/hiyerarsik.php" style="display:none">
-                    <input type="hidden" name="method" value="bolunmeli">
-                    <div class="form-group">
-                        <label class="control-label">X Column</label>
-                        <select class="form-control" name="x_column_name">
-                            
-                        </select>
+                <form method="GET" id="hiyerarsikForm"  action="clustering/hiyerarsik-page.php" style="display:none">
+                    <!-- <p class="alert alert-danger">//TODO</p> -->
+                    <input type="hidden" name="name" value="<?php echo $OKUNACAK_DOSYA_ADI;?>">
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label class="control-label">X Column</label>
+                            <select class="form-control" name="x_column_name">
+                                <?php echo $sayisalKolonlarSelect;?>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="control-label">Y Column</label>
+                            <select class="form-control" name="y_column_name">
+                                <?php echo $sayisalKolonlarSelect;?>
+                            </select>
+                        </div>
                     </div>
-                    <input type="submit" class="btn btn-success" value="Calculate">
+                    <input type="submit" class="btn btn-success" value="Calculate" >
                 </form>
                 
-                <form method="POST" id="yogunlukForm"  action="clustering/yogunluk.php" style="display:none">
-                    <input type="hidden" name="method" value="yogunluk">
+                <form method="GET" id="yogunlukForm"  action="clustering/dbscan-page.php" style="display:none">
+                    <input type="hidden" name="name" value="<?php echo $OKUNACAK_DOSYA_ADI;?>">
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label class="control-label">X Column</label>
+                            <select class="form-control" name="x_column_name">
+                                <?php echo $sayisalKolonlarSelect;?>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="control-label">Y Column</label>
+                            <select class="form-control" name="y_column_name">
+                                <?php echo $sayisalKolonlarSelect;?>
+                            </select>
+                        </div>
+                    </div>
                     <div class="form-group">
-                        <label class="control-label">yogunluk Column</label>
-                        <select class="form-control" name="x_column_name">
-                            
-                        </select>
+                        <label class="control-label">Minimum Samples</label>
+                        <p class="control-label desc-label">Number of samples in a neighborhood for a point to be considered as a core point (this includes the point itself)</p>
+                        <input class="form-control" name="minsamples" value="2"/>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Epsilon</label>
+                        <p class="control-label desc-label">Maximum distance between two samples for them to be considered as in the same neighborhood</p>
+                        <input class="form-control" name="epsilon" value="2" />
                     </div>
                     <input type="submit" class="btn btn-success" value="Calculate">
                 </form>
@@ -127,5 +173,20 @@
                 document.getElementById("yogunlukForm").style.display = "block";
             }
         }
+
+        function getHashValue(key) {
+            var matches = location.hash.match(new RegExp(key+'=([^&]*)'));
+            return matches ? matches[1] : null;
+        }
+
+        var form = location.hash;
+        if(form){
+            formName = form.substring(1);
+            var selectElement = document.getElementById("method");
+            selectElement.value = formName;
+            metodDegisim();
+        }
+
+
     </script>
 <html>
